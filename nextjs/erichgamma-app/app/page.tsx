@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import axios from 'axios';
-const SERVER = 'http://localhost:8080'
+const SERVER = 'http://localhost:8080/'
 import Link from "next/link";
           
 export default function Home() {

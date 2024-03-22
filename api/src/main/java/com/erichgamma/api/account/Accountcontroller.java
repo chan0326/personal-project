@@ -1,71 +1,84 @@
 package com.erichgamma.api.account;
 
 
+import com.erichgamma.api.common.UtilService;
+import com.erichgamma.api.common.UtilServiceImpl;
+import com.erichgamma.api.enums.Messenger;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-
-import com.erichgamma.api.enums.Message;
-
+import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
-public class Accountcontroller {
-    private static Accountcontroller instance = new Accountcontroller();
-     AcoountServiceImpl as ;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-    public Accountcontroller() {
-        this.as = AcoountServiceImpl.getInstance();
-    }
+@RestController
+@RequiredArgsConstructor
+public class AccountController {
+    private final AccountServiceImpl accountService;
+    private final UtilService utilService;
 
-    public static Accountcontroller getinstance() {
-        return instance;
-    }
-
-
-    public Message createAccount(Scanner sc) {
-        System.out.println("생성할 계좌의 id를 입력하세요\n"+
-                "이름을 입력하세요\n"+
-                "게좌번호를 입럭세요\n" +
-                "잔고를 입력하세요(0원으로 자동입력)\n"+
-                "생성날짜를 입력하세요\n");
-        return as.save(Account.builder()
-                        .id(sc.nextLong())
-                .accountHolder(sc.next())
-                .accountNumber(sc.next())
-                        .balance(0)
-                        .transactionDate(null)
+    public Messenger creatAccount(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Create Account ===");
+        System.out.println("Input(Account Number, Depositor)");
+        return accountService.save(Account.builder()
+                .id((long) utilService.createRandomInt(1, 100))
+                .accountNumber("")
+                .accountHolder("")
+                .balance(0.0)
+                .transactionDate(new Date())
                 .build());
     }
 
-    public String deposit(Scanner sc) {
-        System.out.println("인출한 계좌의 id를 입력하세요");
-        System.out.println("인출할 금액을 입력하세요");
-        return as.deposit(Account.builder()
-                .id(sc.nextLong())
-                .accountHolder(sc.next())
-                .accountNumber(sc.next())
-                .balance(sc.nextDouble())
-                .transactionDate(null)
-                .build()
-        );
+    public String getAccountsList() {
+        System.out.println("== Account List ===");
+        List<?> list = accountService.findAll();
+        list.forEach(System.out::println);
+        return "------------------";
     }
 
-    public String withdraw(Scanner sc) {
-        return as.withdraw(Account.builder()
-                .id(sc.nextLong())
-                .accountHolder(sc.next())
-                .accountNumber(sc.next())
-                .balance(sc.nextDouble())
-                .transactionDate(null)
+    public String withdraw(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Withdraw ===");
+        System.out.println("Input(Account Number, amount)");
+        return accountService.withdraw(Account.builder()
+                .accountNumber("")
+                .balance(Double.parseDouble(""))
                 .build());
     }
-    public String getBalance(Scanner sc) {
-        return as.getBalance(sc.next());    }
 
-    public String deletAcoount(Scanner sc) {
-        return as.delete(Account.builder().accountNumber(sc.next()).build());
+    public String deposit(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Deposit ===");
+        System.out.println("Input(Account Number, amount)");
+        return accountService.deposit(Account.builder()
+                .accountNumber("")
+                .balance(Double.parseDouble(""))
+                .build());
     }
 
-    public List<?> getAccount() {
-        return as.findAll();
+    public String getBalance(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Get Balance ===");
+        System.out.println("Input(Account Number)");
+        return accountService.getBalance(Account.builder()
+                .accountNumber("")
+                .build());
+    }
+
+    public Messenger deleteAccount(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Delete Account ===");
+        System.out.println("Input(Account Number)");
+        return accountService.delete(Account.builder()
+                .accountNumber("")
+                .build());
+    }
+
+    public String findAccount(@RequestBody Map<String, ?> reqMap) {
+        System.out.println("=== Find Account ===");
+        System.out.println("Input(Account Number)");
+        return accountService.getOne("")
+                .orElse(new Account())
+                .toString();
     }
 }

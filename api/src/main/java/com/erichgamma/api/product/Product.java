@@ -1,24 +1,30 @@
 package com.erichgamma.api.product;
 
+import java.util.List;
+
+import com.erichgamma.api.order.Order;
+
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
-@ToString(exclude = {"id"})
+@Entity(name = "products")
+@ToString(exclude = "id")
 public class Product {
-    private int id;
-    private int pno;
+    @Id
+    @Column(name = "id",nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private String company;
-    private int price;
+    private Integer price;
 
-    @Builder(builderMethodName = "builder")
-
-    public Product(int id, int pno, String name, String company, int price) {
-        this.id = id;
-        this.pno = pno;
-        this.name = name;
-        this.company = company;
-        this.price = price;
-    }
+    @OneToMany(mappedBy = "product")
+    private List<Order> ordersId;
 }

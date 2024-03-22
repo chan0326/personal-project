@@ -1,68 +1,60 @@
--- soccer JPA 버전
-CREATE TABLE stadium
-(
+-- Soccer JPA Ver.
+CREATE TABLE stadium(
+                        id INT NOT NULL AUTO_INCREMENT,
+                        stadium_name VARCHAR(40),
+                        hometeam_id VARCHAR(10),
+                        seat_count INT,
+                        address VARCHAR(60),
+                        ddd VARCHAR(10),
+                        tel VARCHAR(10),
+                        PRIMARY KEY (id)
+)DEFAULT CHARSET=utf8;
 
-    id           INTEGER,
-    stadium_name varchar(40),
-    hometeam_id  varchar(10),
-    seat_count   INTEGER,
-    address      varchar(60),
-    ddd          varchar(10),
-    tel          varchar(10),
-    PRIMARY KEY (id)
-);
+CREATE TABLE schedule(
+                         id INT NOT NULL AUTO_INCREMENT,
+                         stadium_id INT,
+                         gubun VARCHAR(10),
+                         hometeam_id VARCHAR(10),
+                         awayteam_id VARCHAR(10),
+                         home_score INT,
+                         away_score INT,
+                         PRIMARY KEY (id),
+                         FOREIGN KEY (stadium_id) REFERENCES stadium(id)
+)DEFAULT CHARSET=utf8;
 
-CREATE TABLE team
-(
-    id          INTEGER,
-    stadium_id  INTEGER,
-    region_name varchar(10),
-    team_name   varchar(40),
-    e_team_name varchar(50),
-    orig_yyy    varchar(10),
-    zip_code1   varchar(10),
-    zip_code2   varchar(10),
-    address     varchar(80),
-    ddd         varchar(10),
-    tel         varchar(10),
-    fax         varchar(10),
-    homepage    varchar(50),
-    owner       varchar(10),
-    PRIMARY KEY (id),
-    FOREIGN KEY (stadium_id) references stadium(id)
+CREATE TABLE team(
+                     id INT NOT NULL AUTO_INCREMENT,
+                     region_name VARCHAR(10) ,
+                     team_name VARCHAR(40) ,
+                     e_team_name VARCHAR(50) ,
+                     orig_yyyy VARCHAR(10) ,
+                     zip_code1 VARCHAR(10) ,
+                     zip_code2 VARCHAR(10) ,
+                     address VARCHAR(80) ,
+                     ddd VARCHAR(10) ,
+                     tel VARCHAR(10) ,
+                     fax VARCHAR(10) ,
+                     homepage VARCHAR(50) ,
+                     owner VARCHAR(10) ,
+                     stadium_id INT ,
+                     PRIMARY KEY (id),
+                     FOREIGN KEY (stadium_id) REFERENCES stadium(id)
+)DEFAULT CHARSET=utf8;
 
-);
-CREATE TABLE schedule
-(
-    id          INTEGER,
-    gubun       varchar(10),
-    hometeam_id varchar(10),
-    awayteam_id varchar(10),
-    home_score  INTEGER,
-    away_score  INTEGER,
-    stadium_id  INTEGER,
-    PRIMARY KEY (id),
-    FOREIGN KEY (stadium_id) references stadium(id)
-);
-CREATE TABLE player
-(
-    id            INTEGER,
-    player_name   varchar(20),
-    e_player_name varchar(40),
-    nickname      varchar(30),
-    join_yyyy     varchar(10),
-    pdsition      varchar(10),
-    back_no       INTEGER,
-    nation        varchar(20),
-    birth_date    DATE,
-    solar         varchar(10),
-    height        INTEGER,
-    weight        INTEGER,
-    team_id       INTEGER,
-    PRIMARY KEY (id),
-    FOREIGN KEY (team_id) references team(id)
-);
-DROP TABLE IF EXISTS player;
-DROP TABLE IF EXISTS team;
-DROP TABLE IF EXISTS stadium;
-DROP TABLE IF EXISTS schedule;
+CREATE TABLE player(
+                       id INT NOT NULL AUTO_INCREMENT,
+                       player_name VARCHAR(20),
+                       e_player_name VARCHAR(40),
+                       nickname VARCHAR(30),
+                       join_yyyy VARCHAR(10),
+                       position VARCHAR(10),
+                       back_no INT,
+                       nation VARCHAR(20),
+                       brith_date DATE,
+                       solar VARCHAR(10),
+                       height INT,
+                       weight INT,
+                       team_id INT,
+                       PRIMARY KEY (id),
+                       FOREIGN KEY (team_id) REFERENCES team(id)
+)DEFAULT CHARSET=utf8;

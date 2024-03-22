@@ -4,31 +4,27 @@ import lombok.*;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity(name = "accounts")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
-@ToString(exclude = {"id"})
+@Builder
+@ToString(exclude = "id")
 public class Account {
-    private long id;
-
-
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String accountNumber;
-
-
     private String accountHolder;
-
-    private double balance;
-
-
+    @Setter
+    private Double balance;
+    @Setter
     private Date transactionDate;
-    @Builder(builderMethodName = "builder")
-    public Account(long id, String accountNumber, String accountHolder, double balance, Date transactionDate) {
-        this.id = id;
-        this.accountNumber = accountNumber;
-        this.accountHolder = accountHolder;
-        this.balance = balance;
-        this.transactionDate = transactionDate;
-    }
 }
-
-
-

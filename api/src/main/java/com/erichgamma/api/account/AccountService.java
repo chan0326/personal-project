@@ -1,11 +1,9 @@
 package com.erichgamma.api.account;
 
 public interface AccountService {
+    String withdraw(Account account);
 
     String deposit(Account account);
-    String withdraw(Account account);
-    String getBalance(String accountNumber);
 
-
-
+    String getBalance(Account account);
 }

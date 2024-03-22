@@ -1,3 +1,8 @@
+DROP TABLE if exists player;
+DROP TABLE if exists SCHEDULE;
+DROP TABLE if exists team;
+DROP TABLE if exists stadium;
+
 CREATE TABLE stadium(
                         stadium_id VARCHAR(10),
                         stadium_name VARCHAR(40),

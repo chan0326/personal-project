@@ -1,25 +1,27 @@
 package com.erichgamma.api.article;
 
+import com.erichgamma.api.board.Board;
+import jakarta.persistence.*;
 import lombok.*;
 
+@Entity(name="articles")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
-@ToString(exclude = {"id"})
-
+@ToString(exclude = "id")
 public class Article {
+    @Id
+    @Column(name ="id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String content;
     private String writer;
-    private String registarDate;
+    private String registerDate;
 
-    @Builder(builderMethodName = "builder")
 
-    public Article(Long id, String title, String content, String writer,String registarDate) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.registarDate =registarDate;
-    }
+    @ManyToOne
+    @JoinColumn(name = "board_id", nullable = true)
+    private Board board;
 }

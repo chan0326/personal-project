@@ -1,18 +1,18 @@
 package com.erichgamma.api.common;
 
 public interface UtilService {
+    int createRandomInt(int begin, int range);
+    double createRandomDouble(double begin, double range);
 
-    int createRandomInteger(int start,int gapBetweenEnd);
-    double createRandomDouble(int start,int gapBetwwnEnd);
-    String CreatRandomUsername();
-    String creatRadomName();
+    String createRandomName();
 
-    String creatRandomTitle();
+    String createRandomUsername();
 
-    String creatRandomContnt();
+    String createRandomTitle();
 
-    String creatRandomCompany();
+    String createRandomContent();
 
-    String creatRandomJob();
+    String createRandomCompany();
 
+    String createRandomJob();
 }
