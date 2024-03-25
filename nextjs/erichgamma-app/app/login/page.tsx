@@ -4,8 +4,8 @@ import axios from "axios";
 import Link from "next/link";
 const SERVER = 'http://localhost:8080'
 export default function Login() {
-  const [UserName, setUserName] = useState('')
-  const [PassWord, setPassWord] = useState('')
+  const [username, setUserName] = useState('')
+  const [password, setPassWord] = useState('')
   const handelIdChange = (e: any) => {
     setUserName(e.target.value)
   }
@@ -13,9 +13,9 @@ export default function Login() {
     setPassWord(e.target.value)
   }
   const handelSubmit = () => {
-    alert('' + UserName)
-    const url = `${SERVER}/login`
-    const data = { UserName,PassWord }
+    alert('' + username)
+    const url = `${SERVER}/api/login`
+    const data = { username,password }
     const config = {
 
       headers: {
@@ -32,7 +32,16 @@ export default function Login() {
     }
     axios.post(url, data, config)
       .then(res => {
-        alert(JSON.stringify(res.data))
+        const message = res.data.message
+        alert(res.data.message)
+      //   if (message == null){
+      //     resMap.put("message",Messenger.FAIL);
+      // }else if (!optuser.getPassword().equals(PW)){
+      //     resMap.put("message",Messenger.WRONG_PASSWORD);
+      // }
+      // else {
+      //     resMap.put("message",Messenger.SUCCESS);
+      // }
       })
   }
   

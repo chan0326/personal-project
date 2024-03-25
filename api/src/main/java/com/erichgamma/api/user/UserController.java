@@ -2,6 +2,7 @@ package com.erichgamma.api.user;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import com.erichgamma.api.enums.Messenger;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 
 
-@RestController
+@RestController  //controller + ResponseBody
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class UserController {
@@ -39,12 +40,23 @@ public class UserController {
     }
     @PostMapping("/api/login")
     public Map<String, ?> login(@RequestBody Map<String, ?> reqMap){
-        Map<String, String> resMap = new HashMap<>();
-        String username = (String)reqMap.get("username"), pw = (String)reqMap.get("pw");
-        System.out.println("Request : " + username + ", " + pw);
-        resMap.put("username", username);
-        resMap.put("pw", pw);
-        resMap.put("login", "success");
+        Map<String, Messenger> resMap = new HashMap<>();
+        User optuser =userRepository.findByUsername((String) reqMap.get("username")).orElse(null); //DB정보
+        String PW = (String) reqMap.get("password"); // 리엑트에서 입력한 값
+        if (optuser == null){
+            System.out.println("ID Error");
+            System.out.println(Messenger.FAIL);
+            resMap.put("message",Messenger.FAIL);
+        }else if (!optuser.getPassword().equals(PW)){
+            System.out.println("Password Error");
+            System.out.println(Messenger.WRONG_PASSWORD);
+            resMap.put("message",Messenger.WRONG_PASSWORD);
+        }
+        else {
+            System.out.println("login success");
+            System.out.println(Messenger.SUCCESS);
+            resMap.put("message",Messenger.SUCCESS);
+        }
         return resMap;
     }
 
