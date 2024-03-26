@@ -2,8 +2,10 @@
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 const SERVER = 'http://localhost:8080'
 export default function Login() {
+  
   const [username, setUserName] = useState('')
   const [password, setPassWord] = useState('')
   const handelIdChange = (e: any) => {
@@ -12,6 +14,8 @@ export default function Login() {
   const handelPwChange = (e: any) => {
     setPassWord(e.target.value)
   }
+  const router = useRouter();
+
   const handelSubmit = () => {
     alert('' + username)
     const url = `${SERVER}/api/login`
@@ -34,14 +38,15 @@ export default function Login() {
       .then(res => {
         const message = res.data.message
         alert(res.data.message)
-      //   if (message == null){
-      //     resMap.put("message",Messenger.FAIL);
-      // }else if (!optuser.getPassword().equals(PW)){
-      //     resMap.put("message",Messenger.WRONG_PASSWORD);
-      // }
-      // else {
-      //     resMap.put("message",Messenger.SUCCESS);
-      // }
+        if (message == 'SUCCESS'){
+          router.push("/articles")
+
+      }else if (message == 'SUCCESS'){
+        alert("WRONG_PASSWORD")
+      }
+      else {
+        alert("지정되지 않는 값")
+      }
       })
   }
   
