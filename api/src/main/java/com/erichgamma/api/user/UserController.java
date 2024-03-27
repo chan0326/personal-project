@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserService userservice;
     private final UserRepository userRepository;
-    @PostMapping(path = "/api/users")
+    @PostMapping(path = "/api/users/join")
     public Map<String,?> join(@RequestBody Map<String,?> reMap){
         String serHeight = String.valueOf(reMap.get("height"));
         String serWeight = String.valueOf(reMap.get("weight"));

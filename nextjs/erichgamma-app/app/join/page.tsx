@@ -41,7 +41,7 @@ export default function join() {
 
   const handleClick = () => {
       alert('입력된 값'+username+','+password+','+password_verify+','+name+','+phone+','+job+','+height+','+weight)
-      const url = `${SERVER}/api/users`
+      const url = `${SERVER}/api/users/join`
       const data = { username , password, password_verify, name,phone, job, height, weight}
       const config = {
           headers: {

@@ -4,7 +4,9 @@ import { useState } from "react"
 import axios from 'axios';
 const SERVER = 'http://localhost:8080/'
 import Link from "next/link";
-          
+import './globals.css' 
+import { Button, Input } from "@mui/material";
+
 export default function Home() {
 const [name,setName] = useState('')  
 const handleonChange = (e:any)=>{
@@ -32,13 +34,14 @@ const handleonClick = ()=>{
     alert(JSON.stringify("리스폰스가 가져온 이름 : "+JSON.stringify(res.data)))
   })
 }
-  return (<>
+  return (<div className='text-center'>
   <div>안녕하세요</div>
-  <h2>이름이 뭐에요?</h2>
+  <h3 className='text-red-500'>이름 입력</h3><br />
   <input type="text"onChange={handleonChange} />
-  <button onClick={handleonClick}>입력</button><br />
+  <Button  onClick={handleonClick}>입력</Button ><br />
   <Link href={"/login"}>로그인</Link><br />
-  <Link href={"/join"}>회원가입</Link>
-  </>
+  <Link href={"/join"}>회원가입</Link><br />
+  <Link href={"/mui-demo"}>MUI 데모</Link>
+  </div>
   );
 }
