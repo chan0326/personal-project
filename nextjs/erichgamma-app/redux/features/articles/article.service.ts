@@ -5,12 +5,16 @@ import axios from "axios"
 import AxiosConfig, { instance } from "@/redux/common/configs/axios-config"
 import { API } from "@/redux/common/enums/API"
 
-export const getAllArticles: any =createAsyncThunk('articles/all-articles',
-async(page:number)=>{
+export const getAllArticles: any =createAsyncThunk('articles/getAllArticles',
+async(page:number, {rejectWithValue})=>{
     console.log('getArticles page:'+ page)
-    const {message, result} : any =await getAllArticlesAPI(1);
-    console.log(' api를 사용한 경우~~~~~~~~~~~~~')
-    console.log('message :'+message)
-    console.log(JSON.stringify(result))
+    
+    const data:any = await  getAllArticlesAPI(1);
+
+        const {message, result}:any = data
+        // console.log('----- API 를 사용한 경우 -----')
+        // console.log('message : '+ message)
+        // console.log(JSON.stringify(result))
+        return data
 }
 )

@@ -10,6 +10,12 @@ const status = {
     fullfilled : 'fullfilled',
     rejected: 'rejected'
 }
+
+const handleFulfilled =  (state: any, {payload}: any) => {
+    console.log('------------------ conclusion ---------------')
+    console.log(JSON.stringify(payload))
+}
+
 const handlePending = (state: any) => {
     
 }
@@ -27,11 +33,9 @@ export const articleSlice = createSlice({
     extraReducers: builder => {
         const {pending, rejected} = status;
 
-        builder.addCase(getAllArticles.fullfilled, (state:any,{payload}:any)=>(
-            console.log(JSON.stringify(payload))
-        )
+        builder.addCase(getAllArticles.fulfilled, handleFulfilled)
         
-        )
+        
     }
 })
 
