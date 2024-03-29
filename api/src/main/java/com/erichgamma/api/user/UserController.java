@@ -38,7 +38,7 @@ public class UserController {
 
         return map;
     }
-    @PostMapping("/api/login")
+    @PostMapping("/api/users/login")
     public Map<String, ?> login(@RequestBody Map<String, ?> reqMap){
         Map<String, Messenger> resMap = new HashMap<>();
         User optuser =userRepository.findByUsername((String) reqMap.get("username")).orElse(null); //DB정보

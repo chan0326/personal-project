@@ -6,6 +6,8 @@ const SERVER = 'http://localhost:8080/'
 import Link from "next/link";
 import './globals.css' 
 import { Button, Input } from "@mui/material";
+import AxiosConfig from "../redux/common/configs/axios-config";
+import { PG } from "../redux/common/enums/PG";
 
 export default function Home() {
 const [name,setName] = useState('')  
@@ -14,22 +16,7 @@ const handleonChange = (e:any)=>{
 }
 const handleonClick = ()=>{
   alert('리퀴스트가 가져가는 이름 '+name)
-  const url =`${SERVER}/name`
-  const data = {'name':name}
-  const config = {
-
-    headers:{
-    
-    "Cache-Control": "no-cache",
-    
-    "Content-Type": "application/json",
-    
-    Authorization: `Bearer blah ~` ,
-    
-    "Access-Control-Allow-Origin": "*",
-    
-    }}
-  axios.post(url,data,config)
+  axios.post(`${SERVER}/name`,{'name':name},AxiosConfig())
   .then(res=>{
     alert(JSON.stringify("리스폰스가 가져온 이름 : "+JSON.stringify(res.data)))
   })
@@ -39,9 +26,12 @@ const handleonClick = ()=>{
   <h3 className='text-red-500'>이름 입력</h3><br />
   <input type="text"onChange={handleonChange} />
   <Button  onClick={handleonClick}>입력</Button ><br />
-  <Link href={"/login"}>로그인</Link><br />
-  <Link href={"/join"}>회원가입</Link><br />
-  <Link href={"/mui-demo"}>MUI 데모</Link>
+  <Link href={`${PG.USER}/login`}>로그인</Link><br />
+  <Link href={`${PG.USER}/join`}>회원가입</Link><br />
+  <Link href={`${PG.DEMO}/mui-demo`}>MUI 데모</Link><br />
+  <Link href={`${PG.DEMO}/counter`}>카운터 데모</Link><br />
+  <Link href={`${PG.DEMO}/redux-counter`}>리덕스 카운터 데모</Link><br />
+  <Link href={`${PG.BORAD}`}>전체 게시글</Link>
   </div>
   );
 }

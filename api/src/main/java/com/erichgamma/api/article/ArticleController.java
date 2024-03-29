@@ -16,11 +16,11 @@ public class ArticleController {
     private final ArticleServiceImpl articleService;
     private final ArticleRepository repo;
 
-    @GetMapping("/api/articles")
+    @SuppressWarnings("unchecked")
+    @GetMapping("/api/articles/all-articles")
     public Map <?,?> findAll() throws SQLException {
         Map<String, Object> map = new HashMap<>();
         map.put("message",Messenger.SUCCESS);
-        @SuppressWarnings("unchecked")
         List<Article> list = new ArrayList<>();
         list = articleService.findAll();
         list.forEach(System.out::println);

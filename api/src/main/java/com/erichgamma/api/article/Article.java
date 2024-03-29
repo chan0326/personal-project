@@ -17,7 +17,7 @@ public class Article {
     private Long id;
     private String title;
     private String content;
-    private String writer;
+    private Long writer;
     private String registerDate;
 
 

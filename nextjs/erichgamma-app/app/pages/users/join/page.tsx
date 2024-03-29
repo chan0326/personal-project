@@ -3,6 +3,8 @@
 import { useState } from "react"
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import AxiosConfig from "@/redux/common/configs/axios-config";
+import { PG } from "@/redux/common/enums/PG";
 const SERVER = 'http://localhost:8080'
 export default function join() {
   const [username, setUsername]=useState('')
@@ -41,20 +43,10 @@ export default function join() {
 
   const handleClick = () => {
       alert('입력된 값'+username+','+password+','+password_verify+','+name+','+phone+','+job+','+height+','+weight)
-      const url = `${SERVER}/api/users/join`
-      const data = { username , password, password_verify, name,phone, job, height, weight}
-      const config = {
-          headers: {
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json",
-              Authorization: `Bearer blah ~`,
-              "Access-Control-Allow-Origin": "*",
-          }
-      }
-      axios.post(url, data, config)
+      axios.post(`${SERVER}/api/users/join`, { username , password, password_verify, name,phone, job, height, weight}, AxiosConfig())
           .then(res => {
               alert(JSON.stringify(res.data))
-              router.push("/login")
+              router.push(`${PG.USER}/login`)
           })
   }
     

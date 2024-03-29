@@ -1,8 +1,8 @@
 'use client'
 import { useState } from "react";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AxiosConfig from "@/redux/common/configs/axios-config";
 const SERVER = 'http://localhost:8080'
 export default function Login() {
   
@@ -18,23 +18,7 @@ export default function Login() {
 
   const handelSubmit = () => {
     alert('' + username)
-    const url = `${SERVER}/api/login`
-    const data = { username,password }
-    const config = {
-
-      headers: {
-
-        "Cache-Control": "no-cache",
-
-        "Content-Type": "application/json",
-
-        Authorization: `Bearer blah ~`,
-
-        "Access-Control-Allow-Origin": "*",
-
-      }
-    }
-    axios.post(url, data, config)
+    axios.post(`${SERVER}/api/users/login`, { username,password }, AxiosConfig())
       .then(res => {
         const message = res.data.message
         alert(res.data.message)

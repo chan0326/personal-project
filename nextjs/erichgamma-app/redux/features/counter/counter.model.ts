@@ -1,0 +1,3 @@
+interface Icounter{
+    value: number
+  }
