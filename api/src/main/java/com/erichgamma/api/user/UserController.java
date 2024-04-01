@@ -1,8 +1,7 @@
 package com.erichgamma.api.user;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.SQLException;
+import java.util.*;
 
 import com.erichgamma.api.enums.Messenger;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,25 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userservice;
+    private final UserServiceImpl userservice;
     private final UserRepository userRepository;
+
+
+    @SuppressWarnings("unchecked")
+    @GetMapping("/api/users/all-users")
+    public Map<?,?>findAll() throws SQLException {
+        System.out.println("java 실행");
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",Messenger.SUCCESS);
+        List<User> list = new ArrayList<>();
+        list = userservice.findAll();
+        list.forEach(System.out::println);
+        System.out.println("리스트 사이즈: "+ list.size());
+        map.put("result",list);
+        System.out.println("자바 실행 마무리");
+        return map;
+    }
+
     @PostMapping(path = "/api/users/join")
     public Map<String,?> join(@RequestBody Map<String,?> reMap){
         String serHeight = String.valueOf(reMap.get("height"));

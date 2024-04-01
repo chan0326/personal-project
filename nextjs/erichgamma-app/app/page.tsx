@@ -31,7 +31,8 @@ const handleonClick = ()=>{
   <Link href={`${PG.DEMO}/mui-demo`}>MUI 데모</Link><br />
   <Link href={`${PG.DEMO}/counter`}>카운터 데모</Link><br />
   <Link href={`${PG.DEMO}/redux-counter`}>리덕스 카운터 데모</Link><br />
-  <Link href={`${PG.BORAD}`}>전체 게시글</Link>
+  <Link href={`${PG.BORAD}`}>전체 게시글</Link><br />
+  <Link href={`${PG.USER}/users`}>유저의 정보</Link>
   </div>
   );
 }

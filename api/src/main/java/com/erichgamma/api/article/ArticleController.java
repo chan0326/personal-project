@@ -24,7 +24,7 @@ public class ArticleController {
         List<Article> list = new ArrayList<>();
         list = articleService.findAll();
         list.forEach(System.out::println);
-        System.out.println("리스트 사이즈 : "+list.size());
+        System.out.println("리스트 사이즈 : 12"+list.size());
         map.put("result",list);
         return map;
     }

@@ -5,9 +5,9 @@ import axios from "axios"
 import AxiosConfig, { instance } from "@/redux/common/configs/axios-config"
 import { API } from "@/redux/common/enums/API"
 
-export const getAllArticles: any =createAsyncThunk('articles/getAllArticles',
+export const fetchAllArticles: any =createAsyncThunk('articles/fetchAllArticles',
 async(page:number, {rejectWithValue})=>{
-    console.log('getArticles page:'+ page)
+    console.log('fetchAllArticles page:'+ page)
     
     const data:any = await  getAllArticlesAPI(1);
 

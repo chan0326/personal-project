@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "../counter/counter.init";
-import { getAllArticles } from "./article.service";
+import { initialState } from "../articles/article.init";
+import { fetchAllArticles } from "./article.service";
 import { Pending } from "@mui/icons-material";
 import build from "next/dist/build";
 
-const articleThunks = [getAllArticles]
+const articleThunks = [fetchAllArticles]
 const status = {
     pending:'pending',
     fullfilled : 'fullfilled',
@@ -13,15 +13,14 @@ const status = {
 
 const handleFulfilled =  (state: any, {payload}: any) => {
     console.log('------------------ conclusion ---------------')
-    console.log(JSON.stringify(payload))
+    state.array = payload
+    console.log(state.array)
 }
 
 const handlePending = (state: any) => {
     
 }
-const handlefullfilled = (state: any) => {
-    
-}
+
 const handlerejected = (state: any) => {
     
 }
@@ -33,11 +32,17 @@ export const articleSlice = createSlice({
     extraReducers: builder => {
         const {pending, rejected} = status;
 
-        builder.addCase(getAllArticles.fulfilled, handleFulfilled)
+        builder.addCase(fetchAllArticles.fulfilled, handleFulfilled)
         
         
     }
 })
+
+export const getAllArticles  = (state: any) => {
+    console.log('------------------ Before useSelector ---------------')
+    console.log(JSON.stringify(state.article.array.result))
+    return state.article.array.result;
+}
 
 export const {} = articleSlice.actions
 export default articleSlice.reducer;
