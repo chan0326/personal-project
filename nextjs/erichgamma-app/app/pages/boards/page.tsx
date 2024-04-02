@@ -11,6 +11,7 @@ import { NextPage } from "next";
 import { fetchAllArticles } from "@/redux/features/articles/article.service";
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllArticles } from "@/redux/features/articles/article.slice";
+import Columns from "@/app/components/articles/columns";
 
 interface IArticle {
     id: number,
@@ -20,7 +21,7 @@ interface IArticle {
     registerDate: string
 }
 
-const ArticlesPage: NextPage = () => {
+const ArticlesPage: NextPage = ({data}: any) => {
     const dispatch = useDispatch()
 
     const allArticles: [] = useSelector(getAllArticles)
@@ -42,26 +43,22 @@ const ArticlesPage: NextPage = () => {
 
     return (<>
         <h2>개인페이지 Article</h2>
-        <table border={1}>
-            <thead>
-                <tr>
-                    <th>title</th>
-                    <th>content</th>
-                    <th>writer</th>
-                    <th>registerDate</th>
-                </tr>
-            </thead>
-            <tbody>
-                {allArticles?.map((props: IArticle) => (
-                    <tr key={props.id}>
-                        <td>{props.title}</td>
-                        <td>{props.content}</td>
-                        <td>{props.writer}</td>
-                        <td>{props.registerDate}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={data}
+        columns={Columns()}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
     </>)
 }
 

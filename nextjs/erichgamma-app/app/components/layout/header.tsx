@@ -17,7 +17,7 @@ import Link from 'next/link';
 import { PG } from '@/redux/common/enums/PG';
 import axios from 'axios';
 
-const pages = ['회원가입','로그인', '카운터','게시글목록', '사용자목록'];
+const pages = ['회원가입','login', '카운터','게시글목록', '사용자목록'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
